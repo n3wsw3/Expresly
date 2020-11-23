@@ -381,3 +381,7 @@ FodyWeavers.xsd
 # VS Proj Files
 *.vcxproj
 *.filters
+
+# Build Directories
+*.dir/
+build
