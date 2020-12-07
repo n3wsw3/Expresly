@@ -377,6 +377,8 @@ FodyWeavers.xsd
 bin-int/
 bin/
 
+!vendor/**/bin/
+
 *.vcxproj
 *.filters
 *.sln
