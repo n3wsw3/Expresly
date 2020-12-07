@@ -12,12 +12,13 @@ project "gtest"
         "googletest/googletest/src/**.cc",
 	}
 
-	defines "GTEST_HAS_PTHREAD=0"
-
 	includedirs {
         "googletest/googletest/include",
         "googletest/googletest"
 	}
+
+	filter "system:linux"
+		buildoptions {"-pthread"}
 
 	filter "system:windows"
 		systemversion "latest"
