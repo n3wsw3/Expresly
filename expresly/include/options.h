@@ -1,27 +1,26 @@
 #pragma once
 #include <map>
 #include <string>
+
 #include "token.h"
 #include "types.h"
 
-
 namespace Expresly {
-class Options
-{
-  private:
-    void populateOperators();
+class Options {
+ public:
+  Options();
+  Options(std::map<std::string, Token>);
 
-  public:
-    std::map<std::string, Token> operators{};
-    void addOperator(std::string, int, bool, FuncParam);
-    void addFunction(std::string, FuncParam);
+  void addOperator(const std::string&, int, bool, FuncParam);
+  void addFunction(const std::string&, FuncParam);
 
-    Options();
-    Options( std::map<std::string, Token> op ) {
-        operators.insert(op.begin(), op.end());
-        populateOperators();
-    }
+  bool isToken(const std::string&);
+	Token getToken(const std::string&);
 
-    bool isOperator(std::string);
+ private:
+  void populateOperators();
+
+ private:
+  std::map<std::string, Token> tokens;
 };
-}
+}  // namespace Expresly

@@ -1,22 +1,31 @@
 #include "options.h"
+#include "exceptions/invalid_token.h"
 
 #include <cmath>
 
 namespace Expresly {
 
 Options::Options() { populateOperators(); }
-void Options::addOperator(std::string string, int precedence,
-                          bool rightHandAssociative, FuncParam func) {
-  operators.insert({string, Token{Token::Type::Operator, string, precedence,
-                                  rightHandAssociative, func}});
+
+Options::Options(std::map<std::string, Token> op) : Options() {
+  tokens.insert(op.begin(), op.end());
 }
-void Options::addFunction(std::string string, FuncParam func) {
-  operators.insert(
+
+void Options::addOperator(const std::string& string, int precedence,
+                          bool rightHandAssociative, FuncParam func) {
+  tokens.insert({string, Token{Token::Type::Operator, string, precedence,
+                               rightHandAssociative, func}});
+}
+void Options::addFunction(const std::string& string, FuncParam func) {
+  tokens.insert(
       {string, Token{Token::Type::Function, string, -1, false, func}});
 }
+
 void Options::populateOperators() {
-  operators.insert({"(", Token{Token::Type::LeftParam, ")"}});
-  operators.insert({")", Token{Token::Type::RightParam, ")"}});
+  tokens.insert({"(", Token{Token::Type::LeftParam, "("}});
+  tokens.insert({")", Token{Token::Type::RightParam, ")"}});
+  tokens.insert({",", Token{Token::Type::FunctionDelimiter, ","}});
+
   addOperator("^", 4, true,
               [](std::vector<double> v) { return std::pow(v[0], v[1]); });
   addOperator("*", 3, false, [](std::vector<double> v) {
@@ -47,7 +56,6 @@ void Options::populateOperators() {
     }
     return val;
   });
-  operators.insert({",", Token{Token::Type::FunctionDelimiter, ","}});
   addFunction("sum", [](std::vector<double> v) {
     double val = 0;
     for (auto& d : v) {
@@ -56,7 +64,13 @@ void Options::populateOperators() {
     return val;
   });
 }
-bool Options::isOperator(std::string str) {
-  return !(operators.find(str) == operators.end());
+bool Options::isToken(const std::string& str) {
+  return !(tokens.find(str) == tokens.end());
+}
+
+Token Options::getToken(const std::string& str) {
+	//if (isToken(str))
+		return tokens[str];
+	//throw invalid_token(str);
 }
 }  // namespace Expresly

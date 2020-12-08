@@ -140,10 +140,10 @@ std::vector<Token> Calculate::ExpressionToTokens(std::string expr,
       tokens.push_back({Token::Type::Number, c});
     } else {
       // while c is not an operator
-      while (!options.isOperator(c)) {
+      while (!options.isToken(c)) {
         c += expr[++i];
       }
-      tokens.push_back(options.operators[c]);
+      tokens.push_back(options.getToken(c));
     }
   }
   return tokens;
