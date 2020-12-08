@@ -110,7 +110,7 @@ TEST(ExpressionTest, UnbalancedParentheses) {
                Expresly::mismatched_parentheses);
   EXPECT_THROW(Expresly::expression::eval("2 + 5 * 2)"),
                Expresly::mismatched_parentheses);
-  EXPECT_THROW(Expresly::expression::eval("(((((4)	)))"),
+  EXPECT_THROW(Expresly::expression::eval("(((((4))))"),
                Expresly::mismatched_parentheses);
   EXPECT_THROW(Expresly::expression::eval("((2)) * ((3"),
                Expresly::mismatched_parentheses);
