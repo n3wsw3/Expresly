@@ -141,7 +141,6 @@ TEST(ExpressionTest, Examples) {
   op.addFunction("mod",
                  [](std::vector<double> v) { return std::fmod(v[0], v[1]); });
 
-
   EXPECT_EQ(expresly::expression::eval("mod ( 2 + 3 , 2 )", op), 1);
 
   EXPECT_EQ(expresly::expression::eval("(2 + 2)"), 4);
