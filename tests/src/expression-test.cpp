@@ -1,4 +1,5 @@
 #include <numeric>
+#include <cmath>
 
 #include "exceptions/empty_expression.h"
 #include "exceptions/invalid_token.h"
@@ -127,11 +128,12 @@ TEST(ExpressionTest, CustomFunctions) {
 TEST(ExpressionTest, Examples) {
   Expresly::Options op = Expresly::Options();
   op.addFunction("mod", [](std::vector<double> v) {
-    return static_cast<double>(
-        (static_cast<int>(v[1]) % static_cast<int>(v[0])));
+		return std::fmod(v[1], v[0]);
   });
 
   EXPECT_EQ(Expresly::expression::eval("mod ( 2 + 3 , 2 )", op), 1);
+
+  EXPECT_EQ(Expresly::expression::eval("(2 + 2)"), 4);
 }
 
 TEST(ExpressionTest, ExpressionInstance) {
