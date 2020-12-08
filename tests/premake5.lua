@@ -10,8 +10,7 @@ project "tests"
 	local gtest = "vendor/googletest/googletest"
 
 	files {
-		"*.h",
-        "*.cpp"
+        "src/**.cpp"
 	}
 
 	includedirs {
