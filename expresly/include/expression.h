@@ -16,7 +16,7 @@ class expression {
   expression(std::string&&);
 
   static std::vector<Token> parse(const std::string&);
-  static std::vector<Token> parse(const std::string&, Options);
+  static std::vector<Token> parse(std::string, Options);
   static std::vector<std::string> parseAsString(const std::string&);
   static std::vector<std::string> parseAsString(const std::string&, Options);
 

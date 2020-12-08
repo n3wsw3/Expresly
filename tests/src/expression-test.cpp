@@ -105,6 +105,14 @@ TEST(ExpressionTest, EmptyExpression) {
   EXPECT_THROW(expresly::expression::eval("\r"), expresly::empty_expression);
 }
 
+TEST(ExpressionTest, WhiteSpaceCharacters) {
+  EXPECT_EQ(expresly::expression::eval("2 +\t 3"), 5);
+  EXPECT_EQ(expresly::expression::eval("2 +\v 3"), 5);
+  EXPECT_EQ(expresly::expression::eval("2 +\n 3"), 5);
+  EXPECT_EQ(expresly::expression::eval("2 +\f 3"), 5);
+  EXPECT_EQ(expresly::expression::eval("2 +\r 3"), 5);
+}
+
 TEST(ExpressionTest, UnbalancedParentheses) {
   // Should raise unbalanced parentheses
   EXPECT_THROW(expresly::expression::eval("2 + (5 * 2"),
@@ -147,7 +155,8 @@ TEST(ExpressionTest, Examples) {
 }
 
 TEST(ExpressionTest, ExpressionInstance) {
-  expresly::expression ex(" 1+ 2 ");
+	std::string str(" 1+\t2");
+  expresly::expression ex(str);
   EXPECT_EQ(ex.eval(), 3);
   auto exp = ex.parseAsString();
   std::string expression =
