@@ -1,5 +1,5 @@
-#include <numeric>
 #include <cmath>
+#include <numeric>
 
 #include "exceptions/empty_expression.h"
 #include "exceptions/invalid_token.h"
@@ -125,11 +125,22 @@ TEST(ExpressionTest, CustomFunctions) {
   EXPECT_EQ(expresly::expression::eval("1+yeet(1)", op), 2);
 }
 
+TEST(ExpressionTest, IfStatement) {
+  expresly::Options op = expresly::Options();
+
+  op.addFunction("if",
+                 [](std::vector<double> v) { return v[0] > 0 ? v[1] : v[2]; });
+
+  EXPECT_EQ(expresly::expression::eval("if(-5, 1, 0)", op), 0);
+
+  EXPECT_EQ(expresly::expression::eval("if(5+5, 1, 0)", op), 1);
+}
+
 TEST(ExpressionTest, Examples) {
   expresly::Options op = expresly::Options();
-  op.addFunction("mod", [](std::vector<double> v) {
-		return std::fmod(v[1], v[0]);
-  });
+  op.addFunction("mod",
+                 [](std::vector<double> v) { return std::fmod(v[0], v[1]); });
+
 
   EXPECT_EQ(expresly::expression::eval("mod ( 2 + 3 , 2 )", op), 1);
 
@@ -143,5 +154,5 @@ TEST(ExpressionTest, ExpressionInstance) {
   std::string expression =
       std::accumulate(exp.begin(), exp.end(), std::string{});
 
-	EXPECT_EQ(expression, "1+2");
+  EXPECT_EQ(expression, "1+2");
 }

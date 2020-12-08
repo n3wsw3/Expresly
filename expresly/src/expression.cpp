@@ -224,6 +224,7 @@ double expression::eval(std::queue<Token> queue) {
         v.push_back(stack.top().value);
         stack.pop();
       }
+      std::reverse(v.begin(), v.end());
       stack.push(Token{Token::Type::Number, std::to_string(t.function(v))});
     } else if (t.type == Token::Type::Operator) {
       std::vector<double> v;
