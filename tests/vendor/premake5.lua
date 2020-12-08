@@ -12,6 +12,10 @@ project "gtest"
         "googletest/googletest/src/**.cc",
 	}
 
+	excludes {
+		"googletest/googletest/src/gtest-all.cc"
+	}
+
 	includedirs {
         "googletest/googletest/include",
         "googletest/googletest"
