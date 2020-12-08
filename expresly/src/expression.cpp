@@ -14,7 +14,7 @@ expression::expression(const std::string& expression)
 expression::expression(std::string&& expression)
     : m_Original{std::move(expression)} {}
 
-const std::regex expression::s_NumRegex{"-?[0-9]+([\.][0-9]+)?"};
+const std::regex expression::s_NumRegex{"-?[0-9]+([\\.][0-9]+)?"};
 
 // Checks whether a string is a valid double
 bool expression::isnumber(const std::string& num) {
