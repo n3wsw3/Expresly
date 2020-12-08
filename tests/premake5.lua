@@ -24,6 +24,9 @@ project "tests"
 		"gtest"
 	}
 
+	filter "system:linux"
+		linkoptions {"-pthread"}
+
 	filter "system:windows"
 		systemversion "latest"
 	
