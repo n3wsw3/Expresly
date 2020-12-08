@@ -2,7 +2,7 @@
 
 #include <string>
 
-namespace Expresly {
+namespace expresly {
 
 Token::Token() {}
 Token::Token(Type type) : type{type} {}
@@ -32,4 +32,4 @@ Token::Token(Type type, std::string&& expression, int precedence,
       precedence{precedence},
       rightAssociative{rightAssociative},
       function{function} {}
-}  // namespace Expresly
+}  // namespace expresly

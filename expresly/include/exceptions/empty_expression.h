@@ -3,9 +3,9 @@
 #include <sstream>
 #include <string>
 
-namespace Expresly {
+namespace expresly {
 class empty_expression : public std::exception {
  public:
   const char* what() const throw() { return "Expression is empty"; }
 };
-}  // namespace Expresly
+}  // namespace expresly

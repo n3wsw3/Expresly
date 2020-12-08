@@ -9,7 +9,7 @@
 #include "options.h"
 #include "token.h"
 
-namespace Expresly {
+namespace expresly {
 class expression {
  public:
   expression(const std::string&);
@@ -48,4 +48,4 @@ class expression {
 
   static const std::regex s_NumRegex;
 };
-}  // namespace Expresly
+}  // namespace expresly

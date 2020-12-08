@@ -2,7 +2,7 @@
 
 #include <algorithm>
 
-namespace Expresly {
+namespace expresly {
 double Calculate::EvaluateRPN(std::queue<Token> queue) {
   std::stack<Token> stack;
   while (!queue.empty()) {
@@ -148,4 +148,4 @@ std::vector<Token> Calculate::ExpressionToTokens(std::string expr,
   }
   return tokens;
 }
-}  // namespace Expresly
+}  // namespace expresly

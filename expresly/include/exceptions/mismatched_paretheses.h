@@ -3,9 +3,9 @@
 #include <sstream>
 #include <string>
 
-namespace Expresly {
+namespace expresly {
 class mismatched_parentheses : public std::exception {
  public:
   const char* what() const throw() { return "Mismatched parentheses"; }
 };
-}  // namespace Expresly
+}  // namespace expresly

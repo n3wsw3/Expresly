@@ -3,7 +3,7 @@
 
 #include <cmath>
 
-namespace Expresly {
+namespace expresly {
 
 Options::Options() { populateOperators(); }
 
@@ -73,4 +73,4 @@ Token Options::getToken(const std::string& str) {
 		return tokens[str];
 	//throw invalid_token(str);
 }
-}  // namespace Expresly
+}  // namespace expresly

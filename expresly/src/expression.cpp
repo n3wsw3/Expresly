@@ -8,7 +8,7 @@
 #include "exceptions/invalid_token.h"
 #include "exceptions/mismatched_paretheses.h"
 
-namespace Expresly {
+namespace expresly {
 expression::expression(const std::string& expression)
     : m_Original{expression} {}
 expression::expression(std::string&& expression)
@@ -271,4 +271,4 @@ double expression::eval(Options options) {
 	return expression::eval(m_Original, options);
 }
 
-}  // namespace Expresly
+}  // namespace expresly

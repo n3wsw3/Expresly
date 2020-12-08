@@ -5,7 +5,7 @@
 #include "token.h"
 #include "types.h"
 
-namespace Expresly {
+namespace expresly {
 class Options {
  public:
   Options();
@@ -23,4 +23,4 @@ class Options {
  private:
   std::map<std::string, Token> tokens;
 };
-}  // namespace Expresly
+}  // namespace expresly

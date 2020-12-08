@@ -3,7 +3,7 @@
 #include <string>
 #include <sstream>
 
-namespace Expresly {
+namespace expresly {
 class invalid_token : public std::exception {
  public:
   invalid_token(const std::string& token) : m_Token(token) {}
@@ -19,4 +19,4 @@ class invalid_token : public std::exception {
  private:
   std::string m_Token;
 };
-}  // namespace Expresly
+}  // namespace expresly

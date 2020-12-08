@@ -5,7 +5,7 @@
 #include "token.h"
 #include "options.h"
 
-namespace Expresly {
+namespace expresly {
 class Calculate
 {
   private:
@@ -28,7 +28,7 @@ class Calculate
 
     static std::vector<Token> ExpressionToTokens(std::string, Options);
     //static std::vector<Token> ExpressionToTokens( std::string expression) {
-    //    return Expresly::Calculate::ExpressionToTokens(expression, Options());
+    //    return expresly::Calculate::ExpressionToTokens(expression, Options());
     //}
 
     static double EvaluateRPN(std::queue<Token>);
@@ -45,4 +45,4 @@ class Calculate
         return EvaluateExpression(ExpressionToTokens(expression, options));
     }
 };
-} // namespace Expresly
+} // namespace expresly

@@ -4,7 +4,7 @@
 
 #include "types.h"
 
-namespace Expresly {
+namespace expresly {
 class Token {
  public:
   enum class Type {
@@ -31,4 +31,4 @@ class Token {
   FuncParam function{nullptr};
   double value{-1};
 };
-}  // namespace Expresly
+}  // namespace expresly

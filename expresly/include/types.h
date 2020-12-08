@@ -2,6 +2,6 @@
 #include <functional>
 #include <vector>
 
-namespace Expresly {
+namespace expresly {
 using FuncParam = std::function<double(std::vector<double>)>;
-}  // namespace Expresly
+}  // namespace expresly
