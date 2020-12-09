@@ -22,7 +22,7 @@ If the repository was cloned non-recursively previously, use `git submodule upda
 #include <iostream>
 
 int main() {
-  std::cout << Expresly::expression::eval("(2 + 2)") << std::endl;
+  std::cout << expresly::expression::eval("(2 + 2)") << std::endl;
   return 0;
 }
 ```
@@ -37,12 +37,12 @@ Will output 4
 #include <cmath>
 
 int main() {
-  Expresly::Options op = Expresly::Options();
+  expresly::Options op = expresly::Options();
   op.addFunction("mod", [](std::vector<double> v) {
 		return std::fmod(v[1], v[0]);
   });
 
-  std::cout << Expresly::expression::eval("mod ( 2 + 3 , 2 )", op); << std::endl;
+  std::cout << expresly::expression::eval("mod ( 2 + 3 , 2 )", op); << std::endl;
   return 0;
 }
 ```
