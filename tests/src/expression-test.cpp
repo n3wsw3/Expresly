@@ -10,6 +10,7 @@
 TEST(ExpressionTest, Normal) {
   EXPECT_EQ(expresly::expression::eval("1"), 1);
   EXPECT_EQ(expresly::expression::eval("1.0"), 1);
+  EXPECT_EQ(expresly::expression::eval("(-2+(2^2-4*-1*3)^(1/2))/(2*-1)"), -1);
 }
 
 TEST(ExpressionTest, SpaceBetweenTokens) {
