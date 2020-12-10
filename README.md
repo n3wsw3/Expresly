@@ -18,7 +18,7 @@ If the repository was cloned non-recursively previously, use `git submodule upda
 ### Simple with only standard operators and functions
 
 ```cpp
-#include "expresly.hpp"
+#include "expresly.h"
 #include <iostream>
 
 int main() {
@@ -32,7 +32,7 @@ Will output 4
 ### With added functions
 
 ```cpp
-#include "expresly.hpp"
+#include "expresly.h"
 #include <iostream>
 #include <cmath>
 
