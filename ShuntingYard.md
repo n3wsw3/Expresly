@@ -13,17 +13,17 @@ This did the job nicely, however the time came when it had to be extended, and a
   - If the token is a number, then add it to the output queue. **If the `were values` stack has a value on it, pop it and push `true`**.
   - If the token is a function token, then push it onto the stack. **Push 0 onto the `arg count` stack. If the `were values` stack has a value on it, pop it and push `true`. Push `false` onto `were values`**.
   - If the token is a function argument separator (e.g., a comma):
-    - Until the topmost element of the stack is a left parentheses, pop the element onto the output queue. If no left parentheses are encountered, either the separator was misplaced or parentheses were mismatched. **Pop `were values` into _w_. If _w_ is `true`, pop `arg count` into _a_, increment _a_ and push back into `arg count`. Push `false` into `were values`**.
+    - Until the topmost element of the stack is a left parenthesis, pop the element onto the output queue. If no left parenthesis are encountered, either the separator was misplaced or parentheses were mismatched. **Pop `were values` into _w_. If _w_ is `true`, pop `arg count` into _a_, increment _a_ and push back into `arg count`. Push `false` into `were values`**.
   - If the token is an operator, o<sub>1</sub>, then:
     - while there is an operator, o<sub>2</sub>, at the top of the stack, and either
       - o<sub>1</sub> is associative or left-associative and its precedence is less than (lower precedence) or equal to that of o<sub>2</sub>, or
       - o<sub>1</sub> is right-associative and its precedence is less than (lower precedence) that of o<sub>2</sub> then
       - pop o<sub>2</sub> off the stack, onto the output queue;
     - push o<sub>1</sub> onto the operator stack.
-  - If the token is a left parentheses, then push it onto the stack.
-  - If the token is a right parentheses:
-    - Until the token at the top of the stack is a left parentheses, pop operators off the stack onto the output queue.
-    - Pop the left parentheses from the stack, but not onto the output queue.
+  - If the token is a left parenthesis, then push it onto the stack.
+  - If the token is a right parenthesis:
+    - Until the token at the top of the stack is a left parenthesis, pop operators off the stack onto the output queue.
+    - Pop the left parenthesis from the stack, but not onto the output queue.
     - If the token at the top of the stack is a function token:
       - **Pop stack into _f_**
       - **Pop `arg count` into _a_**
@@ -31,10 +31,10 @@ This did the job nicely, however the time came when it had to be extended, and a
       - **If _w_ is `true`, increment _a_**
       - **Set the argument count of _f_ to _a_**
       - **Push _f_ onto output queue**
-    - _If the stack runs out without finding a left parentheses, then there are mismatched parentheses._ (Throws `expresly::mismatched_parentheses`)
+    - _If the stack runs out without finding a left parenthesis, then there are mismatched parentheses._ (Throws `expresly::mismatched_parentheses`)
 - When there are no more tokens to read:
   - While there are still operator tokens in the stack:
-    - _If the operator token on the top of the stack is a parentheses, then there are mismatched parentheses._ (Throws `expresly::mismatched_parentheses`)
+    - _If the operator token on the top of the stack is a parenthesis, then there are mismatched parentheses._ (Throws `expresly::mismatched_parentheses`)
     - Pop the operator onto the output queue.
 - Exit.
 
