@@ -2,8 +2,8 @@
 #include <map>
 #include <string>
 
-#include "token.h"
-#include "types.h"
+#include "expresly/token.h"
+#include "expresly/types.h"
 
 namespace expresly {
 class Options {

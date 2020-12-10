@@ -1,13 +1,11 @@
-#include "expression.h"
+#include "expresly/expression.h"
 
 #include <algorithm>
 #include <cctype>
 #include <queue>
 #include <string>
 
-#include "exceptions/empty_expression.h"
-#include "exceptions/invalid_token.h"
-#include "exceptions/mismatched_paretheses.h"
+#include "expresly/exceptions.h"
 
 namespace expresly {
 expression::expression(const std::string& expression)
@@ -28,12 +26,12 @@ std::vector<Token> expression::parse(const std::string& expression) {
 
 // Will convert an expression into a vector of tokens.
 // Does NOT guarantee the expression is valid.
-std::vector<Token> expression::parse(std::string expression,
-                                     Options options) {
+std::vector<Token> expression::parse(std::string expression, Options options) {
   // Remove all whitespace of the string (includes tabs, newlines, etc.)
-	expression.erase(std::remove_if(expression.begin(), expression.end(), isspace), expression.end());
-  if (expression.size() <= 0)
-    throw empty_expression();
+  expression.erase(
+      std::remove_if(expression.begin(), expression.end(), isspace),
+      expression.end());
+  if (expression.size() <= 0) throw empty_expression();
 
   std::vector<Token> tokens;
   for (std::size_t i = 0; i < expression.length(); i++) {
@@ -257,20 +255,16 @@ std::vector<std::string> expression::parseAsString(Options options) {
   return expression::parseAsString(m_Original, options);
 }
 
-std::queue<Token> expression::asRPN() {
-	return expression::asRPN(m_Original);
-}
+std::queue<Token> expression::asRPN() { return expression::asRPN(m_Original); }
 
 std::queue<Token> expression::asRPN(Options options) {
-	return expression::asRPN(m_Original, options);
+  return expression::asRPN(m_Original, options);
 }
 
-double expression::eval() {
-	return expression::eval(m_Original);
-}
+double expression::eval() { return expression::eval(m_Original); }
 
 double expression::eval(Options options) {
-	return expression::eval(m_Original, options);
+  return expression::eval(m_Original, options);
 }
 
 }  // namespace expresly

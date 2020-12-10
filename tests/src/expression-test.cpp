@@ -1,9 +1,6 @@
 #include <cmath>
 #include <numeric>
 
-#include "exceptions/empty_expression.h"
-#include "exceptions/invalid_token.h"
-#include "exceptions/mismatched_paretheses.h"
 #include "expresly.h"
 #include "gtest/gtest.h"
 
