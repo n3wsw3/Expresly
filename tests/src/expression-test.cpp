@@ -129,6 +129,10 @@ TEST(ExpressionTest, CustomFunctions) {
   expresly::Options op = expresly::Options();
   op.addFunction("yeet", [](std::vector<double> input) { return input[0]; });
   EXPECT_EQ(expresly::expression::eval("1+yeet(1)", op), 2);
+
+	// Overwriting functions
+  op.addFunction("yeet", [](std::vector<double> input) { return input[0]+1; });
+  EXPECT_EQ(expresly::expression::eval("1+yeet(1)", op), 3);
 }
 
 TEST(ExpressionTest, IfStatement) {
