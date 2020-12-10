@@ -1,7 +1,8 @@
 #include "expresly/options.h"
-#include "expresly/exceptions/invalid_token.h"
 
 #include <cmath>
+
+#include "expresly/exceptions/invalid_token.h"
 
 namespace expresly {
 
@@ -13,12 +14,11 @@ Options::Options(std::map<std::string, Token> op) : Options() {
 
 void Options::addOperator(const std::string& string, int precedence,
                           bool rightHandAssociative, FuncParam func) {
-  tokens.insert({string, Token{Token::Type::Operator, string, precedence,
-                               rightHandAssociative, func}});
+  tokens[string] = Token{Token::Type::Operator, string, precedence,
+                         rightHandAssociative, func};
 }
 void Options::addFunction(const std::string& string, FuncParam func) {
-  tokens.insert(
-      {string, Token{Token::Type::Function, string, -1, false, func}});
+  tokens[string] = Token{Token::Type::Function, string, -1, false, func};
 }
 
 void Options::populateOperators() {
@@ -69,8 +69,8 @@ bool Options::isToken(const std::string& str) {
 }
 
 Token Options::getToken(const std::string& str) {
-	//if (isToken(str))
-		return tokens[str];
-	//throw invalid_token(str);
+  // if (isToken(str))
+  return tokens[str];
+  // throw invalid_token(str);
 }
 }  // namespace expresly
