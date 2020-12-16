@@ -76,7 +76,14 @@ std::vector<Token> expression::parse(std::string expression, Options options) {
       if (!options.isToken(c)) {
         throw invalid_token(c);
       }
+
       // Here it is guaranteed c is a valid token.
+			// If the last token is a number and this token is a left parenthesis
+			// Then we need to add a multiplication sign. Implicit multiplication
+			// 5(3-2) actually means 5*(3-2)
+			if (!tokens.empty() && tokens.back().type == Token::Type::Number && options.getToken(c).type == Token::Type::LeftParam)
+				tokens.push_back(options.getToken("*"));
+
       tokens.push_back(options.getToken(c));
     }
   }
