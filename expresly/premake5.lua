@@ -8,24 +8,17 @@ project "expresly"
 	objdir ("%{wks.location}/bin-int/" .. outputdir .. "/%{prj.name}")
 
 	files {
-		-- "include/**.h",
 		"src/**.cpp",
 		"include/**.h"
-		-- "vendor/modular-boost/boost/**.h"
 	}
 
 	includedirs {
         "src",
         "include"
-		-- "%{wks.location}/n3/vendor/modular-boost"
 	}
 
 	filter "system:windows"
 		systemversion "latest"
-
-		defines
-		{
-		}
 	
 	filter "configurations:Debug"
 		defines "EXP_DEBUG"
