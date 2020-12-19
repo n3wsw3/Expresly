@@ -2,3 +2,6 @@
 	path = tests/vendor/googletest
 	url = git@github.com:google/googletest.git
 	
+[submodule "himod/vendor/wxWidgets"]
+	path = himod/vendor/wxWidgets
+	url = https://github.com/wxWidgets/wxWidgets
