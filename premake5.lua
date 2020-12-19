@@ -19,4 +19,3 @@ group ""
 
 include "expresly"
 include "tests"
-include "himod"
