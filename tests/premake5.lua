@@ -14,7 +14,6 @@ project "tests"
 	}
 
 	includedirs {
-        "%{wks.location}/expresly/src",
         "%{wks.location}/expresly/include",
 		gtest .. "/include"
 	}
@@ -31,11 +30,9 @@ project "tests"
 		systemversion "latest"
 	
     filter "configurations:Debug"
-		defines "EXP_DEBUG"
 		runtime "Debug"
 		symbols "on"
 
 	filter "configurations:Release"
-		defines "EXP_RELEASE"
 		runtime "Release"
 		optimize "on"
