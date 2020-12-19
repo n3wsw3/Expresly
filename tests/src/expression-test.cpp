@@ -1,4 +1,5 @@
 #include <cmath>
+#include <iostream>
 #include <numeric>
 
 #include "expresly.h"
@@ -30,7 +31,9 @@ TEST(ExpressionTest, LotsOfSpaces) {
   EXPECT_EQ(expresly::expression::eval("     2      +  3    "), 5);
   EXPECT_EQ(expresly::expression::eval("        2*         3"), 6);
   EXPECT_EQ(expresly::expression::eval("6             /3    "), 2);
-  EXPECT_EQ(expresly::expression::eval("       2-3          "), -1);
+  EXPECT_EQ(
+      expresly::expression::eval("       2-3				    "),
+      -1);
 }
 
 TEST(ExpressionTest, Parentheses) {
@@ -130,8 +133,9 @@ TEST(ExpressionTest, CustomFunctions) {
   op.addFunction("yeet", [](std::vector<double> input) { return input[0]; });
   EXPECT_EQ(expresly::expression::eval("1+yeet(1)", op), 2);
 
-	// Overwriting functions
-  op.addFunction("yeet", [](std::vector<double> input) { return input[0]+1; });
+  // Overwriting functions
+  op.addFunction("yeet",
+                 [](std::vector<double> input) { return input[0] + 1; });
   EXPECT_EQ(expresly::expression::eval("1+yeet(1)", op), 3);
 }
 
@@ -157,7 +161,7 @@ TEST(ExpressionTest, Examples) {
 }
 
 TEST(ExpressionTest, ExpressionInstance) {
-	std::string str(" 1+\t2");
+  std::string str(" 1+\t2");
   expresly::expression ex(str);
   EXPECT_EQ(ex.eval(), 3);
   auto exp = ex.parseAsString();
@@ -165,4 +169,12 @@ TEST(ExpressionTest, ExpressionInstance) {
       std::accumulate(exp.begin(), exp.end(), std::string{});
 
   EXPECT_EQ(expression, "1+2");
+}
+
+TEST(ExpressionTest, FutureTests) {
+  // Should throw missing operand exeption
+  // EXPECT_ANY_THROW(expresly::expression::eval("2+"));
+
+  // Implicit multiplication
+  EXPECT_EQ(expresly::expression::eval("2(2)"), 4);
 }
