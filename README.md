@@ -11,7 +11,7 @@ If you're not going to run any tests then you can clone the project with `git cl
 Since the tests depend on gtest you have to recursivly clone the submodules.
 
 Start by cloning the repository with `git clone --recursive https://github.com/n3wsw3/Expresly`.
-If the repository was cloned non-recursively previously, use `git submodule update --init` to clone the necessary submodules.
+If the repository was cloned non-recursively previously, use `git submodule update --init --recursive` to clone the necessary submodules.
 
 ## Examples
 
