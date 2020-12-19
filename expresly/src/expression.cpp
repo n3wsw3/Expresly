@@ -239,6 +239,8 @@ double expression::eval(std::queue<Token> queue) {
       stack.pop();
       v.push_back(stack.top().value);
       stack.pop();
+
+			// TODO: FIX THIS SOMETIME VERY SLOW
       std::reverse(v.begin(), v.end());
       stack.push(Token{Token::Type::Number, std::to_string(t.function(v))});
     } else {
