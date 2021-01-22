@@ -13,7 +13,7 @@ expression::expression(const std::string& expression)
 expression::expression(std::string&& expression)
     : m_Original{std::move(expression)} {}
 
-const std::regex expression::s_NumRegex{"-?[0-9]+([\\.][0-9]+)?"};
+const std::regex expression::s_NumRegex{"[+-]?(([1-9][0-9]*)?[0-9](\.[0-9]*)?|\.[0-9]+)"};
 
 // Checks whether a string is a valid double
 bool expression::isnumber(const std::string& num) {
@@ -49,7 +49,7 @@ std::vector<Token> expression::parse(std::string expression, Options options) {
          ((!tokens.empty() && (tokens.back().type == Token::Type::Operator ||
                                tokens.back().type == Token::Type::LeftParam)) ||
           tokens.empty())) ||
-        std::isdigit(expression[i])) {
+        std::isdigit(expression[i]) || c == ".") {
       // While the next character in the expression is a number character or a
       // decimal point. This does not check for if there is multiple decimal
       // points though. Thus it might fail when being parsed as a Token.
@@ -59,7 +59,8 @@ std::vector<Token> expression::parse(std::string expression, Options options) {
 
       // Check if c is actually a number.
       // Since right now c can contain more than one decimal point.
-      if (!isnumber(c)) throw invalid_token(c);
+      if (!isnumber(c)) 
+				throw invalid_token(c);
 
       tokens.push_back({Token::Type::Number, c});
     } else {
