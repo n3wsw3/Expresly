@@ -1,6 +1,8 @@
 #include <cmath>
 #include <iostream>
 #include <numeric>
+#include <array>
+#include <utility>
 
 #include "expresly.h"
 #include "gtest/gtest.h"
@@ -67,11 +69,39 @@ TEST(ExpressionTest, JustNumber) {
   EXPECT_EQ(expresly::expression::eval("420"), 420);
 }
 
-TEST(ExpressionTest, DecimalNumbers) {
-  EXPECT_DOUBLE_EQ(expresly::expression::eval("69.5"), 69.5);
-  EXPECT_DOUBLE_EQ(expresly::expression::eval("420.3"), 420.3);
-  EXPECT_DOUBLE_EQ(expresly::expression::eval("69.69"), 69.69);
+// Creating an array compile time without having to specify the size of the
+// array as a template argument. Creates the same behavior as "int arr[] =
+// {...}" but using c++ std arrays. This should be built-in.
+template <typename... T>
+constexpr auto make_array(T&&... t) {
+  return std::array{static_cast<std::common_type_t<T...>>(t)...};
+}
 
+TEST(ExpressionTest, DecimalNumbers) {
+  // Test to make sure it can handle all different types of formats a number can
+  // be in. Both negative and positive, starting just a period for decimals,
+  // starting with a 0, starting with any number, any number and then a period.
+  // The whole thing.
+  using TestCase = std::pair<std::string, double>;
+  const auto tests = make_array(
+      TestCase{"9", 9}, TestCase{"0", 0}, TestCase{"10", 10},
+      TestCase{"10.", 10.}, TestCase{"0.", 0.}, TestCase{"0.0", 0.0},
+      TestCase{"0.100", 0.100}, TestCase{"0.10", 0.10}, TestCase{"0.01", 0.01},
+      TestCase{"10.0", 10.0}, TestCase{"10.10", 10.10}, TestCase{".0", .0},
+      TestCase{".1", .1}, TestCase{".00", .00}, TestCase{".100", .100},
+      TestCase{".001", .001}, TestCase{"-9", -9}, TestCase{"-0", -0},
+      TestCase{"-10", -10}, TestCase{"-10.", -10.}, TestCase{"-0.", -0.},
+      TestCase{"-0.0", -0.0}, TestCase{"-0.100", -0.100},
+      TestCase{"-0.10", -0.10}, TestCase{"-0.01", -0.01},
+      TestCase{"-10.0", -10.0}, TestCase{"-10.10", -10.10},
+      TestCase{"-.0", -.0}, TestCase{"-.1", -.1}, TestCase{"-.00", -.00},
+      TestCase{"-.100", -.100}, TestCase{"-.001", -.001});
+
+  for (auto& [str, num] : tests) {
+    EXPECT_DOUBLE_EQ(expresly::expression::eval(str), num);
+  }
+
+	// Arithmetic with decimals
   EXPECT_EQ(expresly::expression::eval("4*2.5 + 8.5+1.5 / 3.0"), 19);
   EXPECT_DOUBLE_EQ(expresly::expression::eval("5.0005 + 0.0095"), 5.01);
 }
