@@ -1,3 +1,11 @@
 [submodule "tests/vendor/googletest"]
 	path = tests/vendor/googletest
 	url = git@github.com:google/googletest.git
+[submodule "expresly/vendor/jpcre2"]
+	path = expresly/vendor/jpcre2
+	url = https://github.com/jpcre2/jpcre2
+	branch = release
+[submodule "expresly/vendor/pcre2"]
+	path = expresly/vendor/pcre2
+	url = https://github.com/jpcre2/pcre2.git
+	branch = release

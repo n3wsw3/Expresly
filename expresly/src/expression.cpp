@@ -3,6 +3,7 @@
 #include <algorithm>
 #include <cctype>
 #include <queue>
+#include <regex>
 #include <string>
 
 #include "expresly/exceptions.h"
@@ -13,7 +14,10 @@ expression::expression(const std::string& expression)
 expression::expression(std::string&& expression)
     : m_Original{std::move(expression)} {}
 
-const std::regex expression::s_NumRegex{"[+-]?(([1-9][0-9]*)?[0-9](\.[0-9]*)?|\.[0-9]+)"};
+const std::regex expression::s_NumRegex{
+    R"r([+-]?(([1-9][0-9]*)?[0-9](\.[0-9]*)?|\.[0-9]+))r"};
+// const std::regex expression::s_ExpressionRegex{
+//    R"r((?:\+|\*|\/|\^|(?:(?<=[.\w])\-))|(?:[-]?(?:(?:[1-9][0-9]*)?[0-9](?:\.[0-9]*)?|\.[0-9]+))|(?:\w+)|(?:[\(\),]))r"};
 
 // Checks whether a string is a valid double
 bool expression::isnumber(const std::string& num) {
@@ -33,7 +37,18 @@ std::vector<Token> expression::parse(std::string expression, Options options) {
       expression.end());
   if (expression.size() <= 0) throw empty_expression();
 
+  std::string reg_str =
+      R"r((?:\+|\*|\/|\^|(?:(?<=[.\w])\-))|(?:[-]?(?:(?:[1-9][0-9]*)?[0-9](?:\.[0-9]*)?|\.[0-9]+))|(?:\w+)|(?:[\(\),]))r";
+
+  std::regex reg{reg_str};
+
   std::vector<Token> tokens;
+
+  std::smatch match;
+
+  // if (std::regex_search(expression, match, s_ExpressionRegex)) {
+  //   std::cout << "YES" << std::endl;
+  //}
   for (std::size_t i = 0; i < expression.length(); i++) {
     // If the next character is a space just ignore it
     if (expression[i] == ' ') continue;
@@ -59,31 +74,34 @@ std::vector<Token> expression::parse(std::string expression, Options options) {
 
       // Check if c is actually a number.
       // Since right now c can contain more than one decimal point.
-      if (!isnumber(c)) 
-				throw invalid_token(c);
+      if (!isnumber(c)) throw invalid_token(c);
 
       tokens.push_back({Token::Type::Number, c});
     } else {
       // This is guaranteed to be a function, operator, function delimiter,
       // parentheses, or a synatax error.
-      // Loops and appends until c is a token or until the end of the expression
+      // Loops and appends until c is a token or until the end of the
+      // expression
       // is reached.
       while (!options.isToken(c) && i < expression.length() - 1) {
         c += expression[++i];
       }
       // Check if c is actually the name of a token.
-      // Since the while loop above will continue on until it is a valid token,
-      // it means c can either be a valid token or the rest of the expression.
+      // Since the while loop above will continue on until it is a valid
+      // token,
+      // it means c can either be a valid token or the rest of the
+      // expression.
       if (!options.isToken(c)) {
         throw invalid_token(c);
       }
 
       // Here it is guaranteed c is a valid token.
-			// If the last token is a number and this token is a left parenthesis
-			// Then we need to add a multiplication sign. Implicit multiplication
-			// 5(3-2) actually means 5*(3-2)
-			if (!tokens.empty() && tokens.back().type == Token::Type::Number && options.getToken(c).type == Token::Type::LeftParam)
-				tokens.push_back(options.getToken("*"));
+      // If the last token is a number and this token is a left parenthesis
+      // Then we need to add a multiplication sign. Implicit multiplication
+      // 5(3-2) actually means 5*(3-2)
+      if (!tokens.empty() && tokens.back().type == Token::Type::Number &&
+          options.getToken(c).type == Token::Type::LeftParam)
+        tokens.push_back(options.getToken("*"));
 
       tokens.push_back(options.getToken(c));
     }
@@ -117,6 +135,7 @@ std::queue<Token> expression::asRPN(const std::string& expression,
   return asRPN(parse(expression, options));
 }
 
+// This function is an implementation of the modified shuntingyard algorithm in the Shuntingyard.md file
 std::queue<Token> expression::asRPN(const std::vector<Token>& tokens) {
   std::queue<Token> queue;
   std::stack<Token> stack;
@@ -241,7 +260,7 @@ double expression::eval(std::queue<Token> queue) {
       v.push_back(stack.top().value);
       stack.pop();
 
-			// TODO: FIX THIS SOMETIME VERY SLOW
+      // TODO: FIX THIS SOMETIME VERY SLOW
       std::reverse(v.begin(), v.end());
       stack.push(Token{Token::Type::Number, std::to_string(t.function(v))});
     } else {

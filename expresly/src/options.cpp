@@ -21,6 +21,10 @@ void Options::addFunction(const std::string& string, FuncParam func) {
   tokens[string] = Token{Token::Type::Function, string, -1, false, func};
 }
 
+void Options::addVariable(const std::string& string, const std::string& value) {
+	tokens[string] = {Token::Type::Number, value};
+}
+
 void Options::populateOperators() {
   tokens.insert({"(", Token{Token::Type::LeftParam, "("}});
   tokens.insert({")", Token{Token::Type::RightParam, ")"}});

@@ -13,6 +13,7 @@ class Options {
 
   void addOperator(const std::string&, int, bool, FuncParam);
   void addFunction(const std::string&, FuncParam);
+	void addVariable(const std::string&, const std::string&);
 
   bool isToken(const std::string&);
 	Token getToken(const std::string&);

@@ -47,5 +47,6 @@ class expression {
   std::string m_Original;
 
   static const std::regex s_NumRegex;
+	//static const std::regex s_ExpressionRegex;
 };
 }  // namespace expresly

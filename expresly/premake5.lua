@@ -14,7 +14,13 @@ project "expresly"
 
 	includedirs {
         "src",
-        "include"
+		"include",
+		"vendor/jpcre2/src"
+	}
+
+	links {
+		"pcre2",
+		"jpcre2"
 	}
 
 	filter "system:windows"

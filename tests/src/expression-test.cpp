@@ -1,7 +1,7 @@
+#include <array>
 #include <cmath>
 #include <iostream>
 #include <numeric>
-#include <array>
 #include <utility>
 
 #include "expresly.h"
@@ -97,11 +97,13 @@ TEST(ExpressionTest, DecimalNumbers) {
       TestCase{"-.0", -.0}, TestCase{"-.1", -.1}, TestCase{"-.00", -.00},
       TestCase{"-.100", -.100}, TestCase{"-.001", -.001});
 
+	const std::array x = {{"", 0}, {"0", 2}};
+
   for (auto& [str, num] : tests) {
     EXPECT_DOUBLE_EQ(expresly::expression::eval(str), num);
   }
 
-	// Arithmetic with decimals
+  // Arithmetic with decimals
   EXPECT_EQ(expresly::expression::eval("4*2.5 + 8.5+1.5 / 3.0"), 19);
   EXPECT_DOUBLE_EQ(expresly::expression::eval("5.0005 + 0.0095"), 5.01);
 }
@@ -199,6 +201,16 @@ TEST(ExpressionTest, ExpressionInstance) {
       std::accumulate(exp.begin(), exp.end(), std::string{});
 
   EXPECT_EQ(expression, "1+2");
+}
+
+TEST(ExpressionTest, Variables) {
+  expresly::Options op = expresly::Options();
+
+	op.addVariable("a", "2");
+	op.addVariable("b", "-4");
+	op.addVariable("c", "2");
+
+  EXPECT_EQ(expresly::expression::eval("(-1*b+(b^2-4*a*c)^(1/2))/2*a", op), 1);
 }
 
 TEST(ExpressionTest, FutureTests) {

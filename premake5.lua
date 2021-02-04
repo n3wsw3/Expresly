@@ -14,6 +14,7 @@ outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 group "Dependencies"
 	include "vendor/premake"
 	include "tests/vendor"
+	include "expresly/vendor"
 
 group ""
 
