@@ -1,7 +1,9 @@
+#include <array>
 #include <cmath>
 #include <iostream>
 #include <numeric>
-#include <array>
+#include <tuple>
+#include <unordered_map>
 #include <utility>
 
 #include "expresly.h"
@@ -101,7 +103,7 @@ TEST(ExpressionTest, DecimalNumbers) {
     EXPECT_DOUBLE_EQ(expresly::expression::eval(str), num);
   }
 
-	// Arithmetic with decimals
+  // Arithmetic with decimals
   EXPECT_EQ(expresly::expression::eval("4*2.5 + 8.5+1.5 / 3.0"), 19);
   EXPECT_DOUBLE_EQ(expresly::expression::eval("5.0005 + 0.0095"), 5.01);
 }

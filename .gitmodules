@@ -1,3 +1,6 @@
 [submodule "tests/vendor/googletest"]
 	path = tests/vendor/googletest
 	url = git@github.com:google/googletest.git
+[submodule "expresly/vendor/fmt"]
+	path = expresly/vendor/fmt
+	url = https://github.com/fmtlib/fmt.git
